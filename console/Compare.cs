@@ -3,9 +3,11 @@ using System.IO;
 using ManyConsole;
 using NDesk.Options;
 using SchemaZen.Library.Command;
+using SchemaZen.Library;
 
 namespace SchemaZen.console {
 	internal class Compare : ConsoleCommand {
+		private Logger _logger;
 		private string _source;
 		private string _target;
 		private string _outDiff;
@@ -18,11 +20,11 @@ namespace SchemaZen.console {
 			SkipsCommandSummaryBeforeRunning();
 			HasRequiredOption(
 				"s|source=",
-				"Connection string to a database to compare.",
+				"Connection string to a database to compare, or a folder like 'file:<folder>'.",
 				o => _source = o);
 			HasRequiredOption(
 				"t|target=",
-				"Connection string to a database to compare.",
+				"Connection string to a database to compare, or a folder like 'file:<folder>'.",
 				o => _target = o);
 			HasOption(
 				"outFile=",
@@ -39,6 +41,8 @@ namespace SchemaZen.console {
 		}
 
 		public override int Run(string[] remainingArguments) {
+			_logger = new Logger(_verbose);
+
 			if (!string.IsNullOrEmpty(_outDiff)) {
 				Console.WriteLine();
 				if (!_overwrite && File.Exists(_outDiff)) {
@@ -53,7 +57,9 @@ namespace SchemaZen.console {
 				Source = _source,
 				Target = _target,
 				Verbose = _verbose,
-				OutDiff = _outDiff
+				OutDiff = _outDiff,
+				Logger = _logger,
+				Overwrite = _overwrite
 			};
 
 			try {
