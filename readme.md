@@ -34,6 +34,10 @@ This will compare the databases named `db` between `dev` and `qa` and
 create a sql script called `diff.sql` that can be run on `qa` to make it's
 schema identical to `dev`.
 
+	SchemaZen.exe compare --source "dir:somedir" --target "server=qa;database=db" --outFile diff.sql
+
+This will compare the `qa` database with the script folder `somedir` (relative) with
+the same behaviour as the previous example. This feature requires SQL LocalDB.
 
 See ```SchemaZen.exe help [command]``` for more information and options on each command.
 

@@ -20,11 +20,11 @@ namespace SchemaZen.console {
 			SkipsCommandSummaryBeforeRunning();
 			HasRequiredOption(
 				"s|source=",
-				"Connection string to a database to compare, or a folder like 'file:<folder>'.",
+				"Connection string to a database to compare, or a folder like 'dir:<folder>'.",
 				o => _source = o);
 			HasRequiredOption(
 				"t|target=",
-				"Connection string to a database to compare, or a folder like 'file:<folder>'.",
+				"Connection string to a database to compare, or a folder like 'dir:<folder>'.",
 				o => _target = o);
 			HasOption(
 				"outFile=",
